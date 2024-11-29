@@ -7,12 +7,12 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+  <!-- Contenedor para las partículas -->
+  <div id="particles-js"></div>  
+
+  <!-- Contenedor de las familias y deseos -->
   <h1>Intercambio Navideño</h1>
-  
-  <!-- Contenedor para las familias -->
-  <div id="families-container">
-    <!-- Aquí se mostrará la lista de familias y deseos -->
-  </div>
+  <div id="families-container"></div>
 
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
