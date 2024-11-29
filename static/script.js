@@ -1,6 +1,6 @@
 const families = {
     "Familia Rivera Acosta": [
-        "Manuel", "Miguel", "Panchito", "Pancho Viejo", "Marielos", "Zulema", "Ángel"
+        "Manuel", "Pancho Viejo", "Marielos", "Zulema", "Ángel"
     ],
     "Familia Rivera Cervantes": [
         "Carlos", "Carlitos", "Paty", "Ana"
@@ -10,6 +10,9 @@ const families = {
     ],
     "Familia Aris": [
         "Arisbel", "Chayo", "Gelo", "Victor"
+    ]    
+    "Foraneos": [
+        "Panchito", "Miguel", "Daniela"
     ]
 };
 
