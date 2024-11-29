@@ -19,10 +19,14 @@ const familiesContainer = document.getElementById("families-container");
 // URL base de tu API en Render
 const API_URL = "https://intercambio-page.onrender.com/wishes";
 
+// Variable para almacenar los deseos cargados
+let wishesData = {};
+
 // Renderizar familias
 function renderFamilies() {
     familiesContainer.innerHTML = ""; // Limpiar contenido previo
 
+    // Recorremos todas las familias
     for (const [familyName, members] of Object.entries(families)) {
         const familySection = document.createElement("section");
         familySection.classList.add("family-section");
@@ -41,30 +45,25 @@ function renderFamilies() {
             const personCard = document.createElement("div");
             personCard.classList.add("person-card");
 
-            // Obtener los deseos de la API para el miembro
-            fetch(`${API_URL}`)
-                .then(response => response.json())
-                .then(data => {
-                    const wishes = data[member] || [];
+            // Obtener los deseos del miembro de la API (usamos los datos cargados previamente)
+            const wishes = wishesData[member] || [];
 
-                    personCard.innerHTML = `
-                        <h3>${member}</h3>
-                        <ul>
-                            ${wishes
-                                .map((wish, index) => `
-                                    <li>
-                                        ${renderWish(wish)}
-                                        <button class="delete-button" onclick="removeWish('${member}', ${index})">❌</button>
-                                    </li>
-                                `)
-                                .join("")}
-                        </ul>
-                        <input type="text" placeholder="Nuevo deseo" class="wish-input">
-                        <button onclick="addWish('${member}', this)">Agregar</button>
-                    `;
-                    familyRow.appendChild(personCard);
-                })
-                .catch(error => console.error("Error al obtener los deseos:", error));
+            personCard.innerHTML = `
+                <h3>${member}</h3>
+                <ul>
+                    ${wishes
+                        .map((wish, index) => `
+                            <li>
+                                ${renderWish(wish)}
+                                <button class="delete-button" onclick="removeWish('${member}', ${index})">❌</button>
+                            </li>
+                        `)
+                        .join("")}
+                </ul>
+                <input type="text" placeholder="Nuevo deseo" class="wish-input">
+                <button onclick="addWish('${member}', this)">Agregar</button>
+            `;
+            familyRow.appendChild(personCard);
         });
 
         familySection.appendChild(familyRow);
@@ -101,7 +100,7 @@ function addWish(member, button) {
         .then(response => response.json())
         .then(data => {
             console.log(data.message);
-            renderFamilies();  // Re-renderizar las familias con los deseos actualizados
+            loadWishes();  // Vuelve a cargar los deseos con los nuevos datos
         })
         .catch(error => {
             console.error("Error al agregar el deseo:", error);
@@ -119,19 +118,20 @@ function removeWish(member, index) {
         .then(response => response.json())
         .then(data => {
             console.log(data.message);
-            renderFamilies();  // Re-renderizar las familias después de eliminar el deseo
+            loadWishes();  // Vuelve a cargar los deseos después de eliminar
         })
         .catch(error => {
             console.error("Error al eliminar el deseo:", error);
         });
 }
 
-// Llamada para cargar los deseos desde la API
+// Cargar los deseos desde la API una sola vez
 function loadWishes() {
     fetch(API_URL)
         .then(response => response.json())
         .then(data => {
             console.log("Datos cargados desde la API:", data);
+            wishesData = data;  // Guardar los datos de deseos globalmente
             renderFamilies();  // Vuelve a renderizar las familias con los deseos
         })
         .catch(error => {
@@ -142,7 +142,7 @@ function loadWishes() {
 // Llamada para cargar los datos al inicio
 loadWishes();
 
-// Configuración de partículas
+// Configuración de partículas (NO SE HA ELIMINADO)
 particlesJS("particles-js", {
     particles: {
         number: { value: 100, density: { enable: true, value_area: 800 } },
@@ -161,5 +161,4 @@ particlesJS("particles-js", {
         }
     }
 });
-
 
