@@ -20,7 +20,7 @@ const families = {
 const familiesContainer = document.getElementById("families-container");
 
 // URL base de tu API en Render
-const API_URL = "https://intercambio-page.onrender.com";
+const API_URL = "https://intercambio-page.onrender.com/wishes";
 
 // Variable para almacenar los deseos cargados
 let wishesData = {};
