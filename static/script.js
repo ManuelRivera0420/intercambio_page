@@ -110,20 +110,31 @@ function addWish(member, button) {
     }
 }
 
-// Eliminar un deseo de la API
 function removeWish(member, index) {
     const deleteUrl = `${API_URL}/${member}/${index}`;
 
     fetch(deleteUrl, { method: 'DELETE' })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                return response.text();  // Si la respuesta no es OK, obtenemos el texto (probablemente HTML)
+            }
+            return response.json();  // Si la respuesta es OK, la parseamos como JSON
+        })
         .then(data => {
-            console.log(data.message);
-            loadWishes();  // Vuelve a cargar los deseos después de eliminar
+            if (typeof data === "string") {
+                // Si la respuesta es una cadena de texto (probablemente HTML), lo mostramos
+                console.error("Error del servidor: ", data);
+            } else {
+                // Si la respuesta es JSON
+                console.log(data.message);
+                loadWishes();  // Vuelve a cargar los deseos después de eliminar
+            }
         })
         .catch(error => {
             console.error("Error al eliminar el deseo:", error);
         });
 }
+
 
 // Cargar los deseos desde la API una sola vez
 function loadWishes() {
