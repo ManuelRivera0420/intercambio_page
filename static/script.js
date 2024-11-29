@@ -10,7 +10,7 @@ const families = {
     ],
     "Familia Aris": [
         "Arisbel", "Chayo", "Gelo", "Victor"
-    ]    
+    ],    
     "Foraneos": [
         "Panchito", "Miguel", "Daniela"
     ]
