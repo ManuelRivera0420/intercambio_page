@@ -8,9 +8,26 @@
 </head>
 <body>
   <h1>Intercambio Navideño</h1>
-  <div id="families-container"></div>
   
+  <!-- Contenedor para las familias -->
+  <div id="families-container">
+    <!-- Aquí se mostrará la lista de familias y deseos -->
+  </div>
+
+  <!-- Formulario para agregar un deseo -->
+  <div id="add-wish-form">
+    <h2>Agregar un deseo</h2>
+    <form id="wishForm">
+      <label for="member">Miembro de la familia:</label>
+      <input type="text" id="member" name="member" required><br><br>
+
+      <label for="wish">Deseo:</label>
+      <input type="text" id="wish" name="wish" required><br><br>
+
+      <button type="submit">Agregar deseo</button>
+    </form>
+  </div>
+
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
-
