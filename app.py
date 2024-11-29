@@ -33,14 +33,10 @@ def add_wish():
     data[member].append(wish)
     return jsonify({'message': 'Deseo agregado correctamente'})
 
-# Ruta para eliminar un deseo
-@app.route('/wishes/<member>/<int:wish_index>', methods=['DELETE'])
-def delete_wish(member, wish_index):
-    if member in data and 0 <= wish_index < len(data[member]):
-        del data[member][wish_index]
-        return jsonify({'message': 'Deseo eliminado correctamente'})
-    return jsonify({'error': 'Deseo no encontrado'}), 404
-    
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))  # Usa el puerto asignado por Render
+    app.run(host="0.0.0.0", port=port)
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))  # Usa el puerto asignado por Render
     app.run(host="0.0.0.0", port=port)
